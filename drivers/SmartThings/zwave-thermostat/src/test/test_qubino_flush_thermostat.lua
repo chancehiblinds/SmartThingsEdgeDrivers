@@ -212,26 +212,6 @@ test.register_message_test(
     }
 )
 
-test.register_message_test(
-    "Cooling setpoint reports should be handled",
-    {
-      {
-        channel = "zwave",
-        direction = "receive",
-        message = { mock_device.id,
-                    zw_test_utilities.zwave_test_build_receive_command(ThermostatSetpoint:Report({
-                                                                                                   setpoint_type = ThermostatSetpoint.setpoint_type.COOLING_1,
-                                                                                                   scale = 0,
-                                                                                                   value = 21.5 })) }
-      },
-      {
-        channel = "capability",
-        direction = "send",
-        message = mock_device:generate_test_message("main", capabilities.thermostatCoolingSetpoint.coolingSetpoint({ value = 21.5, unit = 'C' }))
-      }
-    }
-)
-
 test.register_coroutine_test(
   "Heat mode should be configured correctly",
   function ()
